@@ -40,7 +40,6 @@ return new class extends Migration
             $table->timestamps();
             
             // Indexes
-            $table->index(['mediaable_type', 'mediaable_id']);
             $table->index(['mediaable_type', 'mediaable_id', 'collection']);
             $table->index('type');
             $table->index('collection');

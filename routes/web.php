@@ -20,7 +20,6 @@ Route::prefix('dashboard')->name('dashboard.')->group(function () {
         return view('dashboard.users');
     })->name('users');
     
-    Route::get('/contact-queries', function () {
-        return view('dashboard.contact-queries');
-    })->name('contact-queries');
+    Route::get('/contact-queries', [App\Http\Controllers\ContactQueryController::class, 'index'])->name('contact-queries');
+    Route::match(['get', 'post'], '/contact-queries/{id}', [App\Http\Controllers\ContactQueryController::class, 'show'])->name('contact-queries.show');
 });

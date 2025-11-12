@@ -62,7 +62,6 @@ return new class extends Migration
             $table->timestamps();
 
             $table->index(['loan_application_id', 'borrower_type']);
-            $table->index('email');
         });
     }
 
