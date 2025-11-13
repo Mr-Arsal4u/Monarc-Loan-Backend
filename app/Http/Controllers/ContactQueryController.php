@@ -14,7 +14,7 @@ class ContactQueryController extends Controller
     public function index(Request $request)
     {
         $query = ContactQuery::query()
-            ->with(['readBy', 'repliedBy'])
+            ->with(['readBy'])
             ->orderBy('created_at', 'desc');
 
         // Filter by status
@@ -43,7 +43,6 @@ class ContactQueryController extends Controller
             'total' => ContactQuery::count(),
             'new' => ContactQuery::where('status', ContactQueryStatus::NEW->value)->count(),
             'read' => ContactQuery::where('is_read', true)->count(),
-            'replied' => ContactQuery::where('status', ContactQueryStatus::REPLIED->value)->count(),
             'archived' => ContactQuery::where('status', ContactQueryStatus::ARCHIVED->value)->count(),
         ];
 
@@ -55,9 +54,9 @@ class ContactQueryController extends Controller
      */
     public function show(Request $request, string $id)
     {
-        $contactQuery = ContactQuery::with(['readBy', 'repliedBy'])->findOrFail($id);
+        $contactQuery = ContactQuery::with(['readBy'])->findOrFail($id);
         
-        // Handle actions (mark as read, reply, archive)
+        // Handle actions (mark as read, archive)
         if ($request->isMethod('post')) {
             $action = $request->input('action');
             
@@ -68,14 +67,6 @@ class ContactQueryController extends Controller
                     }
                     return redirect()->route('dashboard.contact-queries.show', $id)
                         ->with('success', 'Query marked as read');
-                    
-                case 'reply':
-                    $request->validate([
-                        'reply_message' => 'required|string|max:5000',
-                    ]);
-                    $contactQuery->markAsReplied($request->reply_message);
-                    return redirect()->route('dashboard.contact-queries.show', $id)
-                        ->with('success', 'Reply sent successfully');
                     
                 case 'archive':
                     $contactQuery->archive();

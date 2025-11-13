@@ -22,9 +22,6 @@ class ContactQuery extends Model
         'is_read',
         'read_at',
         'read_by',
-        'replied_at',
-        'replied_by',
-        'reply_message',
         'internal_notes',
         'metadata',
     ];
@@ -35,7 +32,6 @@ class ContactQuery extends Model
             'status' => ContactQueryStatus::class,
             'is_read' => 'boolean',
             'read_at' => 'datetime',
-            'replied_at' => 'datetime',
             'metadata' => 'array',
         ];
     }
@@ -49,14 +45,6 @@ class ContactQuery extends Model
     }
 
     /**
-     * Get the user who replied to this query.
-     */
-    public function repliedBy(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'replied_by');
-    }
-
-    /**
      * Mark the query as read.
      */
     public function markAsRead(?int $userId = null): void
@@ -66,19 +54,6 @@ class ContactQuery extends Model
             'read_at' => now(),
             'read_by' => $userId ?? Auth::id(),
             'status' => $this->status === ContactQueryStatus::NEW ? ContactQueryStatus::READ : $this->status,
-        ]);
-    }
-
-    /**
-     * Mark the query as replied.
-     */
-    public function markAsReplied(string $replyMessage, ?int $userId = null): void
-    {
-        $this->update([
-            'status' => ContactQueryStatus::REPLIED,
-            'replied_at' => now(),
-            'replied_by' => $userId ?? Auth::id(),
-            'reply_message' => $replyMessage,
         ]);
     }
 
@@ -121,14 +96,6 @@ class ContactQuery extends Model
     public function scopeNew($query)
     {
         return $query->where('status', ContactQueryStatus::NEW->value);
-    }
-
-    /**
-     * Scope to get replied queries.
-     */
-    public function scopeReplied($query)
-    {
-        return $query->where('status', ContactQueryStatus::REPLIED->value);
     }
 
     /**

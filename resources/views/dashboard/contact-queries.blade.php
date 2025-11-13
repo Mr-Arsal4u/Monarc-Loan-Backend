@@ -12,7 +12,7 @@
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
         <div class="bg-white rounded-lg border border-slate-200 p-4">
             <div class="text-sm text-slate-600">Total</div>
             <div class="text-2xl font-bold text-slate-900 mt-1">{{ $stats['total'] }}</div>
@@ -24,10 +24,6 @@
         <div class="bg-white rounded-lg border border-slate-200 p-4">
             <div class="text-sm text-slate-600">Read</div>
             <div class="text-2xl font-bold text-green-600 mt-1">{{ $stats['read'] }}</div>
-        </div>
-        <div class="bg-white rounded-lg border border-slate-200 p-4">
-            <div class="text-sm text-slate-600">Replied</div>
-            <div class="text-2xl font-bold text-purple-600 mt-1">{{ $stats['replied'] }}</div>
         </div>
         <div class="bg-white rounded-lg border border-slate-200 p-4">
             <div class="text-sm text-slate-600">Archived</div>
@@ -50,7 +46,6 @@
                     <option value="all" {{ request('status') === 'all' || !request('status') ? 'selected' : '' }}>All</option>
                     <option value="new" {{ request('status') === 'new' ? 'selected' : '' }}>New</option>
                     <option value="read" {{ request('status') === 'read' ? 'selected' : '' }}>Read</option>
-                    <option value="replied" {{ request('status') === 'replied' ? 'selected' : '' }}>Replied</option>
                     <option value="archived" {{ request('status') === 'archived' ? 'selected' : '' }}>Archived</option>
                 </select>
             </div>
@@ -103,7 +98,6 @@
                                 $statusColors = [
                                     'new' => 'bg-blue-100 text-blue-800',
                                     'read' => 'bg-green-100 text-green-800',
-                                    'replied' => 'bg-purple-100 text-purple-800',
                                     'archived' => 'bg-slate-100 text-slate-800',
                                 ];
                                 $statusColor = $statusColors[$query->status->value] ?? 'bg-slate-100 text-slate-800';

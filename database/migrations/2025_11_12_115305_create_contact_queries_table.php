@@ -22,15 +22,10 @@ return new class extends Migration
             $table->text('message');
             
             // Status tracking
-            $table->string('status')->default('new')->index(); // new, read, replied, archived
+            $table->string('status')->default('new')->index(); // new, read, archived
             $table->boolean('is_read')->default(false)->index();
             $table->timestamp('read_at')->nullable();
             $table->foreignId('read_by')->nullable()->constrained('users')->onDelete('set null');
-            
-            // Reply tracking
-            $table->timestamp('replied_at')->nullable();
-            $table->foreignId('replied_by')->nullable()->constrained('users')->onDelete('set null');
-            $table->text('reply_message')->nullable();
             
             // Internal notes
             $table->text('internal_notes')->nullable();

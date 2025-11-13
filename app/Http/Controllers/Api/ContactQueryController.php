@@ -69,7 +69,7 @@ class ContactQueryController extends Controller
     public function index(Request $request): JsonResponse
     {
         $query = ContactQuery::query()
-            ->with(['readBy', 'repliedBy'])
+            ->with(['readBy'])
             ->orderBy('created_at', 'desc');
 
         // Filter by status
@@ -107,7 +107,7 @@ class ContactQueryController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $contactQuery = ContactQuery::with(['readBy', 'repliedBy'])->findOrFail($id);
+        $contactQuery = ContactQuery::with(['readBy'])->findOrFail($id);
 
         return response()->json([
             'success' => true,
@@ -127,33 +127,6 @@ class ContactQueryController extends Controller
             'success' => true,
             'message' => 'Contact query marked as read',
             'data' => $contactQuery->fresh(['readBy']),
-        ]);
-    }
-
-    /**
-     * Reply to a contact query.
-     */
-    public function reply(Request $request, string $id): JsonResponse
-    {
-        $validator = Validator::make($request->all(), [
-            'reply_message' => 'required|string|max:5000',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Validation failed',
-                'errors' => $validator->errors(),
-            ], 422);
-        }
-
-        $contactQuery = ContactQuery::findOrFail($id);
-        $contactQuery->markAsReplied($request->reply_message);
-
-        return response()->json([
-            'success' => true,
-            'message' => 'Reply sent successfully',
-            'data' => $contactQuery->fresh(['repliedBy']),
         ]);
     }
 

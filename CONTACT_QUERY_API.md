@@ -51,7 +51,7 @@ Submit a new contact query from the frontend.
 Get all contact queries with filtering and pagination.
 
 **Query Parameters:**
-- `status` - Filter by status (new, read, replied, archived)
+- `status` - Filter by status (new, read, archived)
 - `is_read` - Filter by read status (true/false)
 - `search` - Search by name, email, subject, or message
 - `per_page` - Items per page (default: 15)
@@ -74,16 +74,6 @@ Get a specific contact query.
 
 #### POST `/api/contact-queries/{id}/mark-read`
 Mark a contact query as read.
-
-#### POST `/api/contact-queries/{id}/reply`
-Reply to a contact query.
-
-**Request Body:**
-```json
-{
-  "reply_message": "Thank you for your inquiry..."
-}
-```
 
 #### POST `/api/contact-queries/{id}/archive`
 Archive a contact query.
@@ -131,7 +121,7 @@ if (response.success) {
 
 - `GET /dashboard/contact-queries` - List all contact queries
 - `GET /dashboard/contact-queries/{id}` - View contact query details
-- `POST /dashboard/contact-queries/{id}` - Handle actions (mark read, reply, archive)
+- `POST /dashboard/contact-queries/{id}` - Handle actions (mark read, archive)
 
 ## CORS Configuration
 
@@ -143,13 +133,11 @@ The contact queries are stored in the `contact_queries` table with the following
 
 - Contact information (name, email, phone, subject, message)
 - Status tracking (status, is_read, read_at, read_by)
-- Reply tracking (replied_at, replied_by, reply_message)
 - Internal notes and metadata
 
 ## Status Values
 
 - `new` - New query (not read)
 - `read` - Query has been read
-- `replied` - Query has been replied to
 - `archived` - Query has been archived
 

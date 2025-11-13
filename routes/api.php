@@ -11,7 +11,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/contact-queries', [ContactQueryController::class, 'index']);
     Route::get('/contact-queries/{id}', [ContactQueryController::class, 'show']);
     Route::post('/contact-queries/{id}/mark-read', [ContactQueryController::class, 'markAsRead']);
-    Route::post('/contact-queries/{id}/reply', [ContactQueryController::class, 'reply']);
     Route::post('/contact-queries/{id}/archive', [ContactQueryController::class, 'archive']);
     Route::delete('/contact-queries/{id}', [ContactQueryController::class, 'destroy']);
 });
