@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
             $table->morphs('addressable'); // addressable_id, addressable_type (polymorphic)
-            $table->string('type')->index();
+            $table->string('type');
             $table->string('street')->nullable();
             $table->string('unit')->nullable();
             $table->string('city')->nullable();

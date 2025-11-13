@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('financial_statements', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade')->index();
+            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade');
             
             // Business Financial Information (last 12 months)
             $table->decimal('annual_revenue', 15, 2)->nullable();

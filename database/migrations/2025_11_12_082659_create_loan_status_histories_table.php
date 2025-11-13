@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('loan_status_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade')->index();
+            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade');
             $table->foreignId('changed_by')->nullable()->constrained('users')->onDelete('set null');
             $table->string('from_status')->nullable();
             $table->string('to_status')->index();

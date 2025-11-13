@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('authorized_signers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade')->index();
+            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade');
             $table->string('first_name');
             $table->string('last_name');
             $table->string('title')->nullable();

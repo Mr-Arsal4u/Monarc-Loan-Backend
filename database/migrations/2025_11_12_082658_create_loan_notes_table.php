@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('loan_notes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade')->index();
+            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade');
             $table->foreignId('author_id')->nullable()->constrained('users')->onDelete('set null');
             $table->text('note');
             $table->string('visibility')->default('internal');

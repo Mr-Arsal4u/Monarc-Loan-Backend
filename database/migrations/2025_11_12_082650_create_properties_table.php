@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade')->index();
+            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade');
             
             // Property Address (can also use addresses table via polymorphic)
             $table->string('property_address')->nullable();

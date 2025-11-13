@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('collaterals', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade')->index();
-            $table->string('collateral_type')->index();
+            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade');
+            $table->string('collateral_type');
             $table->text('collateral_description')->nullable();
             $table->decimal('estimated_collateral_value', 15, 2)->nullable();
             $table->decimal('existing_liens', 15, 2)->default(0);

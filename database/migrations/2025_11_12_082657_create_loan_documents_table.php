@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('loan_documents', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade')->index();
+            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade');
             $table->foreignId('uploader_id')->nullable()->constrained('users')->onDelete('set null');
-            $table->string('type')->index(); // e.g., 'w2', 'tax_return', 'bank_statement', 'certificate_of_business_purpose'
+            $table->string('type'); // e.g., 'w2', 'tax_return', 'bank_statement', 'certificate_of_business_purpose'
             $table->string('filename');
             $table->string('path');
             $table->string('mime_type')->nullable();

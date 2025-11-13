@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('asset_liabilities', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade')->index();
+            $table->foreignId('loan_application_id')->constrained()->onDelete('cascade');
             
             // Assets
             $table->decimal('checking_account_balance', 15, 2)->default(0);

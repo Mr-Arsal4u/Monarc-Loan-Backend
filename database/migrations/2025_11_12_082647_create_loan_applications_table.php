@@ -16,9 +16,9 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('set null');
             $table->string('loan_type')->index();
             // Commercial loan purpose fields
-            $table->string('loan_purpose')->nullable()->after('loan_type');
-            $table->decimal('loan_amount', 15, 2)->nullable()->after('loan_purpose');
-            $table->text('certificate_of_business_purpose')->nullable()->after('loan_amount');
+            $table->string('loan_purpose')->nullable();
+            $table->decimal('loan_amount', 15, 2)->nullable();
+            $table->text('certificate_of_business_purpose')->nullable();
             $table->string('status')->default('draft')->index();
             $table->string('progress_step')->nullable()->index();
             $table->json('completed_steps')->nullable();
